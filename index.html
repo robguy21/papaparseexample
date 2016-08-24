@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Papa Parse</title>
+</head>
+<body>
+<link rel="stylesheet" href="./assets/css/style.css">
+<script src="./assets/js/jquery.min.js"></script>
+
+
+  <div class="overlay-container">
+    <div class="overlay-container__inner">
+      <div  class="success-message" id="js-success"></div>
+      <div>
+        <button class="btn btn--primary" type="button" id="js-read-data">Scan for Data</button>
+      </div>
+    </div>
+  </div>
+<!-- 
+  <div class="container">
+    <div class="item" id="js-headings">
+      <h2>Headings</h2>
+    </div>
+    <div class="item">
+      <h2>Data</h2>
+      <div class="container" id="js-data">
+      </div>
+    </div>
+  </div>
+ -->
+ <div class="body-content">
+     
+    <div class="who-container">
+      <div class="who-container__inner">
+        <div class="who-container__col">
+          <div class="who-container__item--image">
+            <img src="http://scanner-api.sites.dev/files/id-image.bmp" />
+          </div>
+        </div>
+        <div class="who-container__col">
+          <div class="who-container__item">Name: <div id="js-data-name"></div></div>
+          <div class="who-container__item">ID Number: <div id="js-data-id-number"></div></div>
+          <div class="who-container__item">Gender: <div id="js-data-gender"></div></div>
+          <div class="who-container__item">Current Time: <div id="js-data-time"></div></div>
+        </div>
+        <div class="who-container__col">
+          <div style="display: none;"> <!-- Hide this div for now... don't know what i want to do with it yet -->
+            <button type="button" id="js-checkout-data">Check out</button>
+            <button type="button" id="js-data-action-deny">Deny</button>
+          </div>
+
+          <div id="js-data-action-container" class="who-button-container">
+            <div class="grow-parent">
+              <button type="button" class="btn btn--secondary grow-me" id="js-data-action-accept">Accept</button>
+            </div>
+            <div class="grow-parent">
+              <button type="button" class="btn btn--tertiary grow-me" id="js-clear-data">Deny</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="js-error-container"></div>
+ </div>
+
+  <script src="./assets/js/papaparse.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+
+</body>
+</html>
