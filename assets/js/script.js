@@ -1,5 +1,5 @@
 (function() {
-  var SCANNER_API = 'http://scanner-api.sites.dev/';
+  var SCANNER_API = 'http://localhost/scanner/scanner-api/';
   // set up our clear all button actions 
   var myData;
 
@@ -12,19 +12,22 @@
 
   // toggle the state of the page overlay
   function toggleOverlay() {
-    var overlay = document.getElementsByClassName('overlay-container')[0];
-    if (overlay.classList.contains('closed')) {
-      overlay.classList.remove('closed');
-    } else {
-      overlay.classList.add('closed');
-    }
+    return;
+    // var overlay = document.getElementsByClassName('overlay-container')[0];
+    // if (overlay.classList.contains('closed')) {
+    //   overlay.classList.remove('closed');
+    // } else {
+    //   overlay.classList.add('closed');
+    // }
   }
 
-  function toggleTextOnReadNewButton() {
-    if(readNewBtn.innerHTML == 'Scan for Data') {
-      readNewBtn.innerHTML = 'loading...';
+  function toggleTextOnReadNewButton(text) {
+  if (text !== undefined) {
+    readNewBtn.innerHTML = text;
+  } else if(readNewBtn.innerHTML == 'Scan ID') {
+      readNewBtn.innerHTML = 'No ID Found';
     } else {
-      readNewBtn.innerHTML = 'Scan for Data';
+      readNewBtn.innerHTML = 'Scan ID';
     }
   }
 
@@ -46,6 +49,9 @@
       type: 'POST',
       url: SCANNER_API + 'setters/rejectUser.php',
       dataType: 'json',
+      data: {
+        'idNum': myId.innerHTML,
+      }
     })
     .done(function(result) {
       setReject(myData.First_names + " " + myData.Surname);
@@ -68,11 +74,32 @@
 
   function readNew() {
     toggleTextOnReadNewButton();
-    var csvfile = "scanner-api/files/new.csv"; // we need to have a relative path reference to the file
+  
+    $.ajax({
+      type: 'GET',
+      url: SCANNER_API + 'getters/getLatestCsv.php',
+      dataType: 'json',
+    })
+    .done(function(result) {
+    var csvfile = "scanner-api/files/" + result[0];
+    var imageSrc = "scanner-api/files/" + result[1];
+    var imageHook = document.getElementById("js-image-hook");
+    imageHook.innerHTML = "";
+    imageHook.innerHTML = "<img src='" + imageSrc + "' />";
+      $.get(csvfile, function (data) { // since jquery is here... use it to get the file contents
 
-    $.get(csvfile, function (data) { // since jquery is here... use it to get the file contents
       parseLocalFile(data, completeCallback)
+  });
+
+    })
+    .fail(function(error) {
+    toggleTextOnReadNewButton('No ID Found');
+      console.log(error);
+    })
+    .always(function(response) {
+      console.log('here');
     });
+
 
   }
 
@@ -155,11 +182,26 @@
     var myName = document.getElementById('js-data-name'),
         myId = document.getElementById('js-data-id-number'),
         myGender = document.getElementById('js-data-gender'),
-        myTime = document.getElementById('js-data-time');
+        myTime = document.getElementById('js-data-time'),
+        sbName = document.getElementById('js-sidebar-name'),
+        sbAge = document.getElementById('js-sidebar-age'),
+        sbGender = document.getElementById('js-sidebar-gender');
+
     myName.innerHTML = dataObj.First_names + " " + dataObj.Surname;
     myId.innerHTML = dataObj.ID;
     myGender.innerHTML = dataObj.Sex === "M" ? "Male" : "Female";
-    myTime.innerHTML = "2009-09-03 19:39:00";
+    myTime.innerHTML = moment().format("DD-MM-YYYY hh:ss");
+
+    sbName.innerHTML = dataObj.First_names + " " + dataObj.Surname;
+
+    var genderImgSrc = "http://scanner.sites.dev/assets/images/" + (dataObj.Sex === "M") ? "male.jpg" : "female.jpg";
+
+    sbGender.innerHTML = '<img src="' + genderImgSrc + '" />';
+
+    var ageDiff = moment().diff(dataObj.Date_of_birth, 'years');
+    var ageDiffText = (ageDiff >= 18) ? 'clear' : 'bait';
+
+    sbAge.innerHTML = '<span class="age-bgc-' + ageDiffText + '">' + ageDiff + '</span>';
 
     completeFn();
     completeFn2();

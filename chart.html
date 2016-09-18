@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sweet Spot</title>
+  <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="./assets/js/charts.js"></script>
+  <script type="text/javascript" src="./assets/js/materialize.min.js"></script>
+  
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/materialize.min.css">
+</head>
+<body>
+
+  <div class="body-content center-on-mobile">
+    <div class="row header">
+      <div class="header__logo">
+        <img src="http://scanner.sites.dev/assets/images/SweetSpot.jpg">
+
+      </div>
+      <div class="header__button">
+          <h3>Club Sweet Spot</h3>
+
+      </div>
+    </div>
+    <div class="wrap--large">
+      
+      <div class="row">
+        <div class="row col m6 s12">
+          <div class="col m6 s12">
+            <h5>Total: <span id="js-club-total">Fetching...</span></h5>
+          </div>
+
+          <div class="col m6 s12">
+            <h5>Average Age: <span id="js-club-average">Fetching...</span></h5>
+          </div>
+
+          <div class="col m6 s12">
+            <div id="js-chart-gender"></div>
+          </div>
+
+          <div class="col m6 s12">
+            <div id="js-chart-capacity"></div>
+          </div>
+        </div>
+
+          <form class="row col m6 s12" name="ageRangeFilter" id="form-age-range-filter">
+            <div class="row">
+              <div class="input-field col m6 s12">
+                <select id="materialize-select-range">
+                  <option value="" disabled selected>Choose Age Range </option>
+                  <option value="18-24">18-24</option>
+                  <option value="24-28">24-28</option>
+                  <option value="28-35">28-35</option>
+                </select>
+                <label>Age Select</label>
+              </div>
+
+              <div class="input-field col m6 s12">
+                <select id="materialize-select-gender">
+                  <option value="" disabled selected>Choose Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <label>Gender Select</label>
+              </div>
+
+              <div class="col s12">
+                <button type="submit" class="waves-effect waves-light btn">Generate</button>
+              </div>
+
+              <div class="col s12">
+                <div id="js-chart-age"></div>
+              </div>
+
+            </div>
+          </form> 
+      </div>
+
+      <div class="row">
+        <div class="row col m6 s12">
+          <div class="col m6 s12">
+            <span>Bar Length: 10</span>
+          </div>
+          <div class="col m6 s12">
+            <span>Dance Floor: 50</span>
+          </div>
+          <div class="col m6 s12">
+            <span>Seats: 60</span>
+          </div>
+          <div class="col m6 s12">
+            <span>Contact: 015 293 0005</span>
+          </div>
+          <div class="col m6 s12">
+            <span>Total Area: 600sqp</span>
+          </div>
+          <div class="col m6 s12">
+            Age Limit: 18
+          </div>
+          <div class="col m6 s12">
+            <span>Opening Hours: 19:00 - 04:00</span>
+          </div>
+          <div class="col m6 s12">Club Theme: Hawai</div>
+          <div class="col m6 s12"></div>
+          <div class="col m6 s12">Entry Fee: R500</div>
+        </div>
+        <div class="row col m6 s12">
+        <h5>ADVERTISEMENTS HERE</h5>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
